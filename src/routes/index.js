@@ -1,5 +1,5 @@
 const routes = require('express').Router();
-const jokes = require('../controllers');
+//const jokes = require('../controllers');
 
 
 routes.get('/', (req, res) => {
