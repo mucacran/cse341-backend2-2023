@@ -39,56 +39,28 @@ async function main() {
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */         
 	const uri = "mongodb+srv://el_mucacran_rasta:fXyC3iiBL3dq4Hs@cluster0.w4yyxxg.mongodb.net/?retryWrites=true&w=majority";
-    const client = new MongoClient(uri);
-    await client.connect();
+
+const client = new MongoClient(uri);
 
     try {
-        // Connect to the MongoDB cluster
         await client.connect();
-         // Make the appropriate DB calls   
-        //await listDatabases(client);
-        await crearLista(client,{
-            name: "amor de horno",
-            summary: "Algun texto chevere para describir",
-            bathroom: 1,
-            bathromms: 1
-        });
 
-       //const contactos = require('./routes/contactsEjemplo2.json');
-        //await ingresarJeson(client,contactos);
-
+        await listDatabases(client);
+    } catch(e) {
+            console.error(e);
         
-     
-    } catch (e) {
-        console.error(e);
-    }finally {
+    } finally {
         await client.close();
     }
 }
 
 main().catch(console.error);
 
-async function crearLista(cliente,nuevaLista){
-   const resultado = await cliente.db("sample_airbnb").collection("listingsAndReviews").insertOne(nuevaLista);
-
-   console.log(`Nueva listas credas con el siguiente id: ${resultado.insertedId}`);
-}
-
-
-/**
- * Print the names of all available databases
- * @param {MongoClient} client A MongoClient that is connected to a cluster
- */
 async function listDatabases(client) {
-    databasesList = await client.db().admin().listDatabases();
+    const databasesList = await client.db().admin().listDatabases();
 
-    console.log("Databases:");
-    databasesList.databases.forEach(db => console.log(` - ${db.name}`));
-};
-
-async function ingresarJeson(cliente,contactos){
-    const resultado = await cliente.db("Test1").collection("Contact").insertOne(contactos);
-    //E:\sergio\BYUi\CSE341-ene-2023\src\routes\contactsEjemplo2.json
-
-    console.log(`Parece que salio bien con el id: ${resultado.insertedId}`);
+    console.log('Databases:');
+    databasesList.databases.forEach(db => {
+        console.log(`- ${db.name}`);
+    })
 }
