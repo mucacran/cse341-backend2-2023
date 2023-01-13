@@ -53,6 +53,11 @@ async function main() {
             bathroom: 1,
             bathromms: 1
         });
+
+       //const contactos = require('./routes/contactsEjemplo2.json');
+        //await ingresarJeson(client,contactos);
+
+        
      
     } catch (e) {
         console.error(e);
@@ -80,3 +85,10 @@ async function listDatabases(client) {
     console.log("Databases:");
     databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
+
+async function ingresarJeson(cliente,contactos){
+    const resultado = await cliente.db("Test1").collection("Contact").insertOne(contactos);
+    //E:\sergio\BYUi\CSE341-ene-2023\src\routes\contactsEjemplo2.json
+
+    console.log(`Parece que salio bien con el id: ${resultado.insertedId}`);
+}
