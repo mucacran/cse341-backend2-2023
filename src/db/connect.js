@@ -38,7 +38,13 @@ async function main() {
      * Connection URI. Update <username>, <password>, and <your-cluster-url> to reflect your cluster.
      * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
      */         
-	const uri = "mongodb+srv://el_mucacran_rasta:fXyC3iiBL3dq4Hs@cluster0.w4yyxxg.mongodb.net/?retryWrites=true&w=majority";
+	
+
+    const dotenv = require('dotenv');
+    dotenv.config();
+    const MongoClient = require('mongodb').MongoClient;
+
+        const uri = process.env.MONGODB_URI;
 
 const client = new MongoClient(uri);
 
